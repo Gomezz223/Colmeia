@@ -5,8 +5,21 @@
   --text-dark: #402547;
   --text-light: #ffffff;
   --bg-light: #f4f4f4;
-  --font-main: Arial, Helvetica, sans-serif;
+  /* Tipografia */
+  --font-main: "Inter", Arial, sans-serif;
+  /* Priorizando Inter por ser mais moderna */
   --font-secondary: "Montserrat", sans-serif;
+
+  /* Sistema de Bordas */
+  --radius-sm: 12px;
+  --radius-md: 24px;
+  --radius-lg: 50px;
+
+  /* Sistema de Sombras Suaves */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-focus: 0 0 0 4px rgba(171, 129, 205, 0.3);
 }
 
 * {
@@ -15,12 +28,17 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: var(--font-main);
-  line-height: 1.6;
+  line-height: 1.7;
+  /* Aumentado para melhor leitura */
   color: var(--text-dark);
+  background-color: var(--bg-light);
   animation: fadeIn 1s ease-in-out;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* Renderização de fonte mais nítida */
 }
 
 img {
@@ -41,7 +59,8 @@ img {
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
+    /* Reduzido de 20px para movimento mais sutil */
   }
 
   to {
@@ -95,8 +114,9 @@ header .menu a:active,
 header .menu a.active {
   background-color: var(--accent-color);
   color: var(--secondary-color) !important;
-  border-radius: 10px;
-  transform: scale(1.05);
+  border-radius: var(--radius-sm);
+  transform: scale(1.02);
+  /* Escala reduzida para ser mais sutil */
   border: none;
   outline: none;
 }
@@ -106,13 +126,18 @@ header .menu a.active {
   display: none;
 }
 
+/* Ícone do Menu Animado (Hambúrguer -> X) */
 .menu-icon {
   display: none;
   cursor: pointer;
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
-  height: 21px;
+  height: 22px;
+  /* Ajuste leve na altura */
+  z-index: 1100;
+  /* Garante que fique sobre o menu aberto */
+  transition: transform 0.3s ease-in-out;
 }
 
 .menu-icon span {
@@ -121,6 +146,22 @@ header .menu a.active {
   width: 100%;
   background-color: var(--text-light);
   border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+  transform-origin: left center;
+}
+
+/* Estado Ativo do Menu Icon */
+.menu-icon.active span:nth-child(1) {
+  transform: rotate(45deg) translate(0px, -1px);
+}
+
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.menu-icon.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(0px, 0px);
 }
 
 
@@ -152,26 +193,33 @@ section {
 section h1 {
   margin-bottom: 30px;
   color: var(--secondary-color);
-  font-size: 40px;
-  animation: slideUp 0.8s ease-out;
+  font-size: 2.5rem;
+  /* Usando rem para acessibilidade */
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  animation: slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  /* Curva mais suave e duração maior */
 }
 
 .btn-cta {
   display: inline-block;
   background-color: var(--accent-color);
   color: var(--secondary-color);
-  padding: 20px 50px;
-  font-size: 30px;
+  padding: 18px 48px;
+  /* Ajuste fino */
+  font-size: 1.5rem;
   text-decoration: none;
-  font-weight: bold;
-  border-radius: 50px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+  /* Movimento mais curto */
+  box-shadow: var(--shadow-lg);
   background-color: #ffda6a;
 }
 
@@ -205,8 +253,10 @@ article img {
   height: 400px;
   object-fit: cover;
   object-position: top center;
-  border-radius: 20px;
+  border-radius: var(--radius-md);
   margin: 20px 0;
+  box-shadow: var(--shadow-sm);
+  /* Adicionado profundidade sutil às imagens */
 }
 
 
@@ -242,17 +292,19 @@ article img {
   padding: 40px;
   width: 100%;
   max-width: 600px;
-  background-color: rgba(253, 202, 64, 0.85);
+  background-color: rgba(253, 202, 64, 0.95);
+  /* Menos transparência para leitura */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .call:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .call h1 {
@@ -281,19 +333,20 @@ article img {
 
 .saibamais {
   display: inline-block;
-  padding: 15px 35px;
-  border-radius: 50px;
+  padding: 12px 32px;
+  border-radius: var(--radius-lg);
   background-color: var(--secondary-color);
   text-align: center;
   width: fit-content;
   align-self: flex-end;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .saibamais:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   background-color: #4a2952;
+  box-shadow: var(--shadow-md);
 }
 
 .saibamais a {
@@ -391,9 +444,9 @@ article img {
   background-color: var(--accent-color);
   width: 100%;
   max-width: 700px;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  padding: 48px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
 }
 
 .login-container {
@@ -447,17 +500,25 @@ label {
 
 input {
   width: 100%;
-  padding: 12px;
+  padding: 14px 18px;
   margin-bottom: 20px;
-  border: none;
-  border-radius: 10px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
   background-color: var(--primary-color);
   color: var(--text-dark);
   font-size: 16px;
+  transition: all 0.3s ease;
+  font-family: var(--font-secondary);
 }
 
 input::placeholder {
   color: rgba(64, 37, 71, 0.7);
+}
+
+input:focus {
+  outline: none;
+  background-color: #9d71c1;
+  box-shadow: var(--shadow-focus);
 }
 
 button {
@@ -466,19 +527,19 @@ button {
   background-color: #b68ed9;
   color: var(--text-dark);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(182, 142, 217, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 button:hover {
   opacity: 1;
   background-color: #c5a4e0;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(182, 142, 217, 0.5);
+  box-shadow: var(--shadow-lg);
 }
 
 .form-footer {
@@ -499,28 +560,85 @@ button:hover {
 
 
 @media (max-width: 768px) {
-
   .menu-icon {
     display: flex;
   }
 
   header .menu {
-    display: none;
+    position: absolute;
+    /* Fixa o menu sobre o conteúdo */
+    top: 90px;
+    /* Altura do header */
+    left: 0;
     width: 100%;
+    background-color: var(--primary-color);
+    /* Mantém fundo */
     flex-direction: column;
     text-align: center;
-    padding-top: 20px;
+    padding: 20px 0;
+
+    /* Transições Suaves */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s ease-in-out;
+    z-index: 1000;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   }
 
-
-  #menu-toggle:checked~.menu {
+  /* Estado Ativo do Menu (Controlado via JS) */
+  header .menu.active {
     display: flex;
+    /* Garante display flex */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Remove logica antiga de checkbox hack para display (mantemos compatibilidade com label for click) */
+  #menu-toggle:checked~.menu {
+    /* Mantido apenas como fallback se JS falhar, mas idealmente JS controla a classe .active */
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
   header .menu a {
     display: block;
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Animação dos links aparecendo em cascata quando menu abre */
+  header .menu.active a {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+    /* Delay base */
+  }
+
+  header .menu.active a:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+
+  header .menu.active a:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+
+  header .menu.active a:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+
+  header .menu.active a:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+
+  header .menu.active a:nth-child(5) {
+    transition-delay: 0.5s;
   }
 
 
@@ -1026,9 +1144,38 @@ input:focus {
 }
 
 .ecommerce-intro p {
-  font-size: 1.2rem;
   max-width: 800px;
   margin: 0 auto;
+}
+
+/* --- ANIMAÇÕES E INTERAÇÕES VISUAIS --- */
+
+.hidden-state {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.8s ease-out;
+  background-color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(2.5);
+
+    opacity: 0;
+  }
 }
 
 .products-section {

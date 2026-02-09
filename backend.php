@@ -1,74 +1,53 @@
 <?php
-    session_start();
-    require_once "usuario.php";
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+session_start();
+require_once "config/Database.php";
+require_once "src/Usuario.php";
 
-    $nome     = trim($_POST["nomeCompleto"] ?? '');
-    $email    = trim($_POST["email"] ?? '');
-    $telefone = trim($_POST["telefone"] ?? '');
-    $senha   = $_POST["senha"] ?? '';
-    $confirmarSenha = $_POST["confirmarSenha"] ?? '';
-    //BANCO DE DADOS
-    $dsn = "mysql:dbname=testePPA;host=localhost";
-    $usuario = "root";
-    $pass = "";
+use Config\Database;
+use Src\Usuario;
 
-
-    // VALIDAÇÃO DO FORM
-    if (str_word_count($nome) < 2) {
-        die("Erro: informe seu nome completo.");
-    }
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die("Erro: email inválido.");
-    }
-
-    $telefoneLimpo = preg_replace('/\D/', '', $telefone);
-    if (strlen($telefoneLimpo) < 10 || strlen($telefoneLimpo) > 11) {
-        die("Erro: telefone inválido.");
-    }
-
-    if (strlen($senha) < 6) {
-        die("Erro: a senha deve ter pelo menos 6 caracteres.");
-    }
-
-    if ($senha !== $confirmarSenha) {
-        die("Erro: as senhas não coincidem.");
-    }
-
-
-    //CONEXÃO BANCO DE DADOS
-    try{
-        $pdo = new PDO($dsn, $usuario, $pass);
-        echo "Conexão efetuada com sucesso!";
-    }catch(PDOException $e){
-        echo 'Erro na conexão do banco de dados: ' . $e;
-    }
-
-    $stmt = $pdo ->prepare("INSERT INTO usuario(nome,email,telefone,senha) VALUES (:n,:e,:t,:s)");
-    $stmt ->execute([':n' => $nome, ':e'=> $email, ':t' => $telefoneLimpo, ':s' => $senha]);
-
-    $user = new Usuario($nome,$senha,$email,$telefoneLimpo);
-
-    
-    $_SESSION['usuario'] = [
-        'nome' => $user->getNome(),
-        'email' => $user->getEmail(),
-        'telefone' => $user->getTelefone()
-    ];
-
-    //QUERY DO BANCO DE DADOS
-    // CREATE TABLE usuario(
-    // codigo int primary key AUTO_INCREMENT,
-    // nome varchar(30),
-    // email varchar(30) primary key,
-    // telefone varchar(12),
-    // senha varchar(30)
-    // );
-
-    header("Location: index.html");
-    exit;
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    die("Método de requisição inválido.");
 }
 
+$nome = trim($_POST["nomeCompleto"] ?? '');
+$email = trim($_POST["email"] ?? '');
+$telefone = trim($_POST["telefone"] ?? '');
+$senha = $_POST["senha"] ?? '';
+$confirmarSenha = $_POST["confirmarSenha"] ?? '';
+$tipo = $_POST["tipo"] ?? 'cliente';
+
+$user = new Usuario($nome, $email, $telefone, $senha, $tipo);
+
+if (!$user->validarNome() || !$user->validarEmail() || !$user->validarTelefone() || !$user->validarSenha() || !$user->validarTipo() || $senha !== $confirmarSenha) {
+    die("Erro: dados inválidos.");
+}
+
+try {
+    $pdo = Database::getInstance();
+    $stmtCheck = $pdo->prepare("SELECT email FROM usuario WHERE email = :e");
+    $stmtCheck->execute([':e' => $user->getEmail()]);
+    if ($stmtCheck->fetch()) {
+        die("Erro: Email já cadastrado.");
+    }
+
+    $stmt = $pdo->prepare("INSERT INTO usuario (nome, email, telefone, senha, tipo) VALUES (:n, :e, :t, :s, :tp)");
+    $stmt->execute([
+        ':n' => $user->getNome(),
+        ':e' => $user->getEmail(),
+        ':t' => $user->getTelefone(),
+        ':s' => $user->getSenha(),
+        ':tp' => $user->getTipo()
+    ]);
+
+    $userId = $pdo->lastInsertId();
+    Usuario::registrarEvento($userId, 'cadastro', 'Usuário cadastrado', $pdo);
+
+    $_SESSION['usuario'] = ['id' => $userId, 'nome' => $user->getNome(), 'tipo' => $user->getTipo()];
+    header("Location: index.html");
+    exit;
+} catch (PDOException $e) {
+    die("Erro ao processar cadastro.");
+}
 
 ?>

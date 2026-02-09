@@ -20,15 +20,16 @@
     <div class="img"><img src="assets/img/logo.png" alt="logo"></div>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
     <label for="menu-toggle" class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </label>
     <nav class="menu">
       <a href="index.html">INÍCIO</a>
       <a href="sobre.html">SOBRE NÓS</a>
       <a href="ecommerce.html">E-COMMERCE</a>
       <a href="ajuda.html">AJUDA & DENUNCIAS</a>
+      <a href="login.html">LOGIN</a>
     </nav>
   </header>
 
@@ -39,7 +40,7 @@
         <hr class="linhacadastro"
           style="margin: 20px auto; width: 80%; border: none; height: 1px; background-color: #402547;">
 
-        <form action="backend.php" method="post">
+        <form id="formCadastro" action="backend.php" method="post">
           <label class="labelcadastro" for="nomeCompleto">Nome completo:</label>
           <input class="inputcadastro" type="text" id="nomeCompleto" name="nomeCompleto"
             placeholder="Digite seu nome completo" required>
@@ -71,6 +72,7 @@
     </section>
   </main>
 
+  <script src="assets/js/script.js" defer></script>
 </body>
 
 </html>
