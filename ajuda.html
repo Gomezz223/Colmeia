@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    <title>Colmeia - Ajuda & Denúncias</title>
+</head>
+
+<body id="bodyD">
+
+    <header>
+        <div class="img">
+            <img src="assets/img/logo.png" alt="logoColmeia">
+        </div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="menu">
+            <a href="index.html">INÍCIO</a>
+            <a href="sobre.html">SOBRE NÓS</a>
+            <a href="ecommerce.html">E-COMMERCE</a>
+            <a class="active" href="ajuda.html">AJUDA & DENÚNCIAS</a>
+            <a href="login.html">LOGIN</a>
+        </nav>
+    </header>
+
+    <main id="mainDenuncia">
+
+        <h1 id="tituloDenuncia">C O L M E I A</h1>
+        <h2 id="h2Denuncia">AINDA MAIS FORTES UNIDAS!</h2>
+
+        <form id="formD" action="#" method="post">
+
+
+            <div id="divpai1">
+                <h3>Dados do(a) denunciante/vítima:</h3>
+                <div class="divfilho" id="divfilho1">
+
+                    <label class="labelDenuncia" for="nomeCompletoDenuncia">Nome (Completo/Social)</label>
+                    <input class="inputDenuncia" type="text" id="nomeCompletoDenuncia" name="nomeCompletoDenuncia"
+                        placeholder="Digite seu nome completo" required>
+
+                    <label class="labelDenuncia" for="E-mailDenuncia">E-mail</label>
+                    <input class="inputDenuncia" type="text" id="E-mailDenuncia" name="E-mailDenuncia"
+                        placeholder="Digite seu E-mail" required>
+
+                    <label class="labelDenuncia" for="CPFouRGDenuncia">CPF ou RG</label>
+                    <input class="inputDenuncia" type="text" id="CPFouRGDenuncia" name="CPFouRGDenuncia"
+                        placeholder="Digite seu CPF ou RG" required>
+
+                    <label class="labelDenuncia" for="Telefone/WhatsappDenuncia">Telefone/Whatsapp</label>
+                    <input class="inputDenuncia" type="text" id="Telefone/WhatsappDenuncia"
+                        name="Telefone/WhatsappDenuncia" placeholder="Digite seu Telefone/Whatsapp" required>
+
+                </div>
+
+                <h3>Denúncia:</h3>
+                <div class="divfilho" id="divfilho2">
+
+                    <label class="labelDenuncia" for="Tipodeviolencia">Tipo de violência</label>
+                    <select class="inputDenuncia" id="Tipodeviolencia" name="Tipodeviolencia" required>
+                        <option value="" disabled selected>Escolha o tipo de violência</option>
+                        <option value="fisica">Física</option>
+                        <option value="psicologica">Psicológica</option>
+                        <option value="sexual">Sexual</option>
+                        <option value="domestica">Doméstica</option>
+                    </select>
+
+                    <label class="labelDenuncia" for="Agressor">Quem é o agressor?</label>
+                    <select class="inputDenuncia" id="Agressor" name="Agressor" required>
+                        <option value="" disabled selected>Escolha quem é o agressor</option>
+                        <option value="Desconhecido">Desconhecido</option>
+                        <option value="amigo">Amigo</option>
+                        <option value="familiar">Familiar</option>
+                        <option value="conjuge">Cônjuge</option>
+                    </select>
+
+                </div>
+
+                <h3>Tipo de denúncia:</h3>
+                <div class="divfilho radiogroup" id="divfilho3">
+                    <div class="radio-item">
+                        <input type="radio" id="Identificada" name="tipo" value="i">
+                        <label class="labelDenuncia" for="Identificada">Identificada</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="Confidencial" name="tipo" value="c">
+                        <label class="labelDenuncia" for="Confidencial">Confidencial</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="Anônima" name="tipo" value="a">
+                        <label class="labelDenuncia" for="Anônima">Anônima</label>
+                    </div>
+                </div>
+
+                <h3>Onde ocorreu:</h3>
+                <div class="divfilho" id="divfilho4">
+
+                    <label class="labelDenuncia" for="data">Quando (Data)?</label>
+                    <input class="inputDenuncia" type="date" id="data" name="data" required>
+
+                    <label class="labelDenuncia" for="UF">UF</label>
+                    <select class="inputDenuncia" id="UF" name="UF" required>
+                        <option value="" disabled selected>Escolha a UF</option>
+                        <option value="ac">Acre</option>
+                        <option value="al">Alagoas</option>
+                        <option value="ap">Amapá</option>
+                        <option value="am">Amazonas</option>
+                        <option value="ba">Bahia</option>
+                        <option value="ce">Ceará</option>
+                        <option value="df">Distrito Federal</option>
+                        <option value="es">Espírito Santo</option>
+                        <option value="go">Goiás</option>
+                        <option value="ma">Maranhão</option>
+                        <option value="mt">Mato Grosso</option>
+                        <option value="ms">Mato Grosso do Sul</option>
+                        <option value="mg">Minas Gerais</option>
+                        <option value="pa">Pará</option>
+                        <option value="pb">Paraíba</option>
+                        <option value="pr">Paraná</option>
+                        <option value="pe">Pernambuco</option>
+                        <option value="pi">Piauí</option>
+                        <option value="rj">Rio de Janeiro</option>
+                        <option value="rn">Rio Grande do Norte</option>
+                        <option value="rs">Rio Grande do Sul</option>
+                        <option value="ro">Rondônia</option>
+                        <option value="rr">Roraima</option>
+                        <option value="sc">Santa Catarina</option>
+                        <option value="sp">São Paulo</option>
+                        <option value="se">Sergipe</option>
+                        <option value="to">Tocantins</option>
+                    </select>
+
+                    <label class="labelDenuncia" for="Cidade">Cidade</label>
+                    <input class="inputDenuncia" type="text" id="Cidade" name="Cidade" placeholder="Digite sua Cidade"
+                        required>
+
+                    <label class="labelDenuncia" for="Bairro">Bairro</label>
+                    <input class="inputDenuncia" type="text" id="Bairro" name="Bairro" placeholder="Digite seu Bairro"
+                        required>
+
+
+                </div>
+                <button type="submit"> Enviar Denúncia</button>
+
+            </div>
+
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <div class="social-item">
+                    <img src="assets/img/instagram.png" alt="Instagram">
+                    <span>@COLMEIA_unidas1234</span>
+                </div>
+                <div class="social-item">
+                    <img src="assets/img/whatsapp.png" alt="WhatsApp">
+                    <span>55 77 9999 - 9999</span>
+                </div>
+                <div class="social-item">
+                    <img src="assets/img/telefone.png" alt="Telefone">
+                    <span>55 3441 - 9999</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <h1>"SOMOS MAIS FORTES UNIDAS"</h1>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="assets/js/script.js" defer></script>
+</body>
+
+</html>
